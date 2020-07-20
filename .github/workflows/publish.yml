@@ -18,14 +18,12 @@ jobs:
       run: dotnet build --configuration Release --no-restore src/LSHDotNet/
     - name: Test 
       run: dotnet test --no-restore --verbosity normal src/LSHDotNet/
-    - name: Tree for debug
-      run: tree .
     - name: Publish to Nuget
       id: publish_nuget
       uses: rohith/publish-nuget@v2
       with:
         # Filepath of the project to be packaged, relative to root of repository
-        PROJECT_FILE_PATH: src\LSHDotNet\LSHDotNet\LSHDotNet.csproj
+        PROJECT_FILE_PATH: src\LSHDotNet\LSHDotNet.csproj
 
         # NuGet package id, used for version detection & defaults to project name
         PACKAGE_NAME: LSHDotNet
