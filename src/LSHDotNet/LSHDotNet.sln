@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LSHDotNet", "LSHDotNet\LSHDotNet.csproj", "{1805D403-D80D-4520-8E7A-81E3DEC87CF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitTestLSH", "NUnitTestLSH\NUnitTestLSH.csproj", "{AE576515-F18A-4D31-908D-37BC8B74D8F6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1805D403-D80D-4520-8E7A-81E3DEC87CF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1805D403-D80D-4520-8E7A-81E3DEC87CF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1805D403-D80D-4520-8E7A-81E3DEC87CF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1805D403-D80D-4520-8E7A-81E3DEC87CF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE576515-F18A-4D31-908D-37BC8B74D8F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE576515-F18A-4D31-908D-37BC8B74D8F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE576515-F18A-4D31-908D-37BC8B74D8F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE576515-F18A-4D31-908D-37BC8B74D8F6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {215E1F92-DE44-477D-9219-3C731CD319D5}
+	EndGlobalSection
+EndGlobal
