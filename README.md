@@ -9,11 +9,11 @@ https://www.nuget.org/packages/LSHDotNet)
 
 Package-Manager Console  
 ```
-Install-Package LSHDotNet -Version 1.0.0  
+Install-Package LSHDotNet 
 ```
 .net CLI  
 ```
-dotnet add package LSHDotNet --version 1.0.0
+dotnet add package LSHDotNet
 ```
 
 ## Usage
