@@ -18,6 +18,8 @@ jobs:
       run: dotnet build --configuration Release --no-restore src/LSHDotNet/
     - name: Test 
       run: dotnet test --no-restore --verbosity normal src/LSHDotNet/
+    - name: Tree for debug
+      run: tree .
     - name: Publish to Nuget
       id: publish_nuget
       uses: rohith/publish-nuget@v2
