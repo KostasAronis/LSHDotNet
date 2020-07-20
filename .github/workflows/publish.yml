@@ -25,12 +25,12 @@ jobs:
       with:
         dotnet-version: 3.1.301
     - name: Install dependencies
-      run: dotnet restore src/LSHDotNet/
+      run: dotnet restore src/
     - name: Build
-      run: dotnet build --configuration Release --no-restore src/LSHDotNet/
+      run: dotnet build --configuration Release --no-restore src/
     - name: Test 
-      run: dotnet test --no-restore --verbosity normal src/LSHDotNet/
+      run: dotnet test --no-restore --verbosity normal src/
     - name: Pack with dotnet
-      run: dotnet pack src/LSHDotNet/LSHDotNet/LSHDotNet.csproj --output nuget-packages --configuration Release -p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }}-${{ steps.gitversion.outputs.CommitsSinceVersionSourcePadded }} 
+      run: dotnet pack src/LSHDotNet/LSHDotNet.csproj --output nuget-packages --configuration Release -p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }}-${{ steps.gitversion.outputs.CommitsSinceVersionSourcePadded }} 
     - name: Push with dotnet
       run: dotnet nuget push nuget-packages/*.nupkg --api-key ${{ secrets.NUGET_KEY }} --source https://api.nuget.org/v3/index.json
