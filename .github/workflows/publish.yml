@@ -13,11 +13,11 @@ jobs:
       with:
         dotnet-version: 3.1.301
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore src/LSHDotNet/
     - name: Build
-      run: dotnet build --configuration Release --no-restore
-    - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet build --configuration Release --no-restore src/LSHDotNet/
+    - name: Test 
+      run: dotnet test --no-restore --verbosity normal src/LSHDotNet/
     - name: Publish to Nuget
       id: publish_nuget
       uses: rohith/publish-nuget@v2

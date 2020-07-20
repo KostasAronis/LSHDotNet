@@ -64,7 +64,7 @@ namespace LSHDotNet
 
         public int[] GetMinHashSignature(string value)
         {
-            return GetMinHashSignature(SplitInParts(value,2));
+            return GetMinHashSignature(SplitInParts(value,1));
         }
 
         private static string[] SplitInParts(string s, int partLength)
