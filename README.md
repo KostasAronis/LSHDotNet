@@ -24,7 +24,7 @@ Current tested usage is only for searching among strings. I tried to keep the li
 ```csharp
 using LSHDotNet;
 
-{...}
+{ ... }
 
 Dictionary<int, string> searchSpace = new Dictionary<int, string>()
 {
