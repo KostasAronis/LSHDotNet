@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Fetch all history for all tags and branches
-      run: git fetch --prune --unshallow --all
+      run: git fetch --prune --unshallow
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v0.9
       with:
@@ -17,6 +17,8 @@ jobs:
     - name: Use GitVersion
       id: gitversion # step id used as reference for output values
       uses: gittools/actions/gitversion/execute@v0.9
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v2
     - run: |
         echo "NuGetVersionV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}"
         echo "NuGetPreReleaseTagV2: ${{ steps.gitversion.outputs.CommitsSinceVersionSourcePadded }}"
