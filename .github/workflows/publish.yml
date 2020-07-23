@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Fetch all history for all tags and branches
-      run: git fetch --prune --unshallow
+      run: git fetch --prune --unshallow --all
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v0.9
       with:
