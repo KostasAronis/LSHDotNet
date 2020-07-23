@@ -2,7 +2,8 @@ name: .NET Core
 
 on:
   push:
-    branches: [ master ]
+    tags:
+      - *
 jobs:
   build:
     runs-on: ubuntu-latest
