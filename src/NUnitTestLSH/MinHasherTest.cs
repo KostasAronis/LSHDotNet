@@ -478,7 +478,6 @@ namespace NUnitTestLSH
             Assert.IsNotNull(result);
             Assert.AreEqual(result.Count, 1);
             Assert.AreEqual(result.First().Similarity, 1);
-            Assert.AreEqual(result.First().Metadata["Name"], searchString[1]);
             Assert.AreEqual(result.First().Id, 0);
         }
     }

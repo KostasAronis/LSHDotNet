@@ -81,6 +81,18 @@ namespace LSHDotNet
             return result.ToArray();
         }
 
+        public Dictionary<IdType, int[]> CreateMinhashCollection(Dictionary<IdType, ILSHashable> documents)
+        {
+            Dictionary<IdType, int[]> minhashCollection = new Dictionary<IdType, int[]>(documents.Count);
+
+            foreach (var document in documents)
+            {
+                int[] minhashSignature = GetMinHashSignature(document.Value.GetStringToHash());
+                minhashCollection.Add(document.Key, minhashSignature);
+            }
+            return minhashCollection;
+        }
+
         public Dictionary<IdType, int[]> CreateMinhashCollection(Dictionary<IdType, string> documents)
         {
             Dictionary<IdType, int[]> minhashCollection = new Dictionary<IdType, int[]>(documents.Count);
