@@ -8,22 +8,22 @@ namespace LSHDotNet
     public class MinHasher<IdType>
     {
         public int _signatureSize;
-        public Tuple<int, int>[] minHashSeeds;
+        public int[][] minHashSeeds;
 
         public MinHasher(int SignatureSize)
         {
             _signatureSize = SignatureSize;
             minHashSeeds = CreateMinHashSeeds(_signatureSize);
         }
-        public MinHasher(int signatureSize, Tuple<int, int>[] minHashes)
+        public MinHasher(int signatureSize, int[][] minHashes)
         {
             _signatureSize = signatureSize;
             minHashSeeds = minHashes;
         }
 
-        public static Tuple<int, int>[] CreateMinHashSeeds(int signatureSize)
+        public static int[][] CreateMinHashSeeds(int signatureSize)
         {
-            Tuple<int, int>[] seeds = new Tuple<int, int>[signatureSize];
+            var seeds = new int[signatureSize][];
             HashSet<int> skipDups = new HashSet<int>();
             Random r = new Random();
             for (int i = 0; i < seeds.Length; i++)
@@ -31,7 +31,7 @@ namespace LSHDotNet
                 Tuple<int, int> seed = new Tuple<int, int>(r.Next(), r.Next());
 
                 if (skipDups.Add(seed.GetHashCode()))
-                    seeds[i] = seed;
+                    seeds[i] = new int[] { seed.Item1, seed.Item2 };
                 else
                     i--;  //duplicate seed, try again 
             }
@@ -51,8 +51,8 @@ namespace LSHDotNet
                 {   //Hash each unique token with each unique hashing function
                     for (int i = 0; i < _signatureSize; i++)
                     {   //Use the same seeds everytime for each hashing function (this is very important!!!)
-                        Tuple<int, int> seeds = minHashSeeds[i];
-                        int currentHashValue = LSHHash(token, seeds.Item1, seeds.Item2);
+                        int[] seed = minHashSeeds[i];
+                        int currentHashValue = LSHHash(token, seed[0], seed[1]);
                         //Only retain the minimum value produced by each unique hashing function.
                         if (currentHashValue < minHashValues[i])
                             minHashValues[i] = currentHashValue;
