@@ -8,4 +8,8 @@ namespace LSHDotNet
     {
         public string GetStringToHash();
     }
+    public interface ILSHWeightedHashable
+    {
+        public List<Tuple<string,double>> GetWeightedStringsToHash();
+    }
 }

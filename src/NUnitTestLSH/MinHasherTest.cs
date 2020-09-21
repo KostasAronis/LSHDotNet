@@ -3,6 +3,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -471,6 +472,7 @@ namespace NUnitTestLSH
         public void SearchTest()
         {
             var searchString = new string[] { "Samsungs", "C24F390FHU" };
+            var searchStringHash = searchString.Select(s => minHasher.GetMinHashSignature(s)).ToList();
             var brandFilteredProducts = lshSearcher.GetClosest(productList.ToDictionary(p=>p.Key,p=>p.Value[0]), searchString[0], 50);
             var result = lshSearcher.GetClosest(brandFilteredProducts.ToDictionary(p=>p.Id, p=>productList[p.Id][1]), searchString[1], 1);
             Assert.IsNotEmpty(result);

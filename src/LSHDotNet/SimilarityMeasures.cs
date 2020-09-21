@@ -12,5 +12,10 @@ namespace LSHDotNet
             int intersection = setA.Intersect(setB).Count();
             return intersection / (double)setA.Length;
         }
+        public static double Cosine(int[] setA, int[] setB)
+        {
+            int intersection = setA.Intersect(setB).Count();
+            return intersection / (double)setA.Length;
+        }
     }
 }
