@@ -472,7 +472,7 @@ namespace NUnitTestLSH
         public void SimpleHashCharTest()
         {
             var minH = new MinHasher<int>(hashSeeds.Take(1).ToArray());
-            var mhs = minH.GetMinHashSignature(new string[] { "A","S","D","F" });
+            var mhs = minH.GetMinHashSignature(new string[] { "a", "s","d","f" });
             var mhs2 = minH.GetMinHashSignature("ASDF");
             Assert.AreEqual(mhs, mhs2);
         }
@@ -482,7 +482,7 @@ namespace NUnitTestLSH
         {
             var minH = new MinHasher<int>(hashSeeds.Take(10).ToArray());
             var mhs = minH.GetMinHashSignature("ASDF");
-            var mhs2 = minH.GetMinHashSignature("ASDF");
+            var mhs2 = minH.GetMinHashSignature("asdf");
             Assert.AreEqual(mhs, mhs2);
         }
 

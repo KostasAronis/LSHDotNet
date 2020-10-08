@@ -20,6 +20,8 @@ dotnet add package LSHDotNet
 
 Current tested usage is only for searching among strings. I tried to keep the library as generic as possible and will further abstract it in order for more complex types to be successfully hashed and searched.
 
+`Best usage examples are the working unit tests. :)`
+
 
 ```csharp
 using LSHDotNet;
