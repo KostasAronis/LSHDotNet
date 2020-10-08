@@ -16,6 +16,31 @@ namespace LSHDotNet
             this.similarityMeasure = similarityMeasure;
         }
 
+        public List<Result<IdType>> GetClosest(Dictionary<IdType, IWeightedHashed> hashedSearchSpace, int[] hashedSearchString, int count, double threshold = 0.5)
+        {
+            var results = new List<Result<IdType>>();
+            foreach(var product in hashedSearchSpace)
+            {
+                var id = product.Key;
+                var weightedHashes = product.Value.GetWeightedHashes();
+                double productSimilarity = 0;
+                for (var i = 0; i < weightedHashes.Count; i++)
+                {
+                    var minhash = weightedHashes[i].Item1;
+                    var weight = weightedHashes[i].Item2;
+                    var weightedSimilarity = similarityMeasure.Invoke(minhash, hashedSearchString) * weight;
+                    productSimilarity += weightedSimilarity;
+                }
+                results.Add(new Result<IdType>()
+                {
+                    Id = id,
+                    Similarity = productSimilarity
+                });
+            }
+            results.Sort();
+            return results.Take(count).Where(r => r.Similarity > threshold).ToList();
+        }
+
         public List<Result<IdType>> GetClosest(Dictionary<IdType, ILSHWeightedHashable> searchSpace, string searchString, int count, double threshold = 0.5)
         {
             var searchSpaceHashes = minHasher.CreateMinhashCollection(searchSpace);

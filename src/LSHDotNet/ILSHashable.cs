@@ -16,4 +16,8 @@ namespace LSHDotNet
     {
         public List<Tuple<string,double>> GetWeightedStringsToHash();
     }
+    public interface IWeightedHashed : BaseHashable
+    {
+        public List<Tuple<int[], double>> GetWeightedHashes();
+    }
 }
