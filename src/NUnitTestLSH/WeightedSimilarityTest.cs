@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace NUnitTestLSH
@@ -216,7 +217,7 @@ namespace NUnitTestLSH
         };
         Dictionary<int, ILSHWeightedHashable> productList = new Dictionary<int, ILSHWeightedHashable>()
         {
-            {0, new Pr("C24F390FHU", "Samsung")},
+            {0, new Pr("Samsung", "C24F390FHU")},
             {1, new Pr("Dell", "S2719DGF")},
             {2, new Pr("Samsung", "CJG50")},
             {3, new Pr("AOC", "24G2U")},
@@ -460,19 +461,40 @@ namespace NUnitTestLSH
         [SetUp]
         public void Setup()
         {
-            minHasher = new MinHasher<int>(signatureSize, hashSeeds);
+            minHasher = new MinHasher<int>(hashSeeds.Take(50).ToArray());
             lshSearcher = new LSHSearch<int>(minHasher, SimilarityMeasures.Jaccard);
         }
 
         [Test]
         public void SearchTest()
         {
-            var searchString = new string[] { "Samsungs", "C24F390FHU" };
-            var result = lshSearcher.GetClosest(productList, searchString[1], 5);
-            Assert.IsNotEmpty(result);
-            Assert.IsNotNull(result);
+            var searchString1 = "C24F390FHU";
+            var res1 = GetResultForString(searchString1);
+
+            var ss2 = "C24F390FH";
+            var res2 = GetResultForString(ss2);
+
+            var ss3 = "C24F390FHUB";
+            var res3 = GetResultForString(ss3);
+
+            var ss4 = "Samsung";
+            var res4 = GetResultForString(ss4);
+
+            var res5 = GetResultForString("Samsung C24F390FHU");
+
+            var res6 = GetResultForString("C24F390FHU Samsung");
+            Assert.IsNotNull(res1);
+        }
+        private Result<int> GetResultForString(string searchString)
+        {
+            var res = lshSearcher.GetClosest(productList, searchString, 5, 0.1);
+            var result = res.FirstOrDefault();
+            result.Document = productList[result.Id];
+            return result;
         }
     }
+
+
     public class Pr : ILSHWeightedHashable
     {
         private string Brand;
@@ -488,8 +510,9 @@ namespace NUnitTestLSH
         {
             return new List<Tuple<string, double>>()
             {
-                new Tuple<string, double>(Brand, 0.2),
-                new Tuple<string, double>(Model, 0.8)
+                new Tuple<string, double>(Brand, 0.1),
+                new Tuple<string, double>(Model, 0.4),
+                new Tuple<string, double>(Brand + Model, 0.5),
             };
         }
     }

@@ -4,11 +4,15 @@ using System.Text;
 
 namespace LSHDotNet
 {
-    public interface ILSHashable
+    public interface BaseHashable
+    {
+
+    }
+    public interface ILSHashable : BaseHashable
     {
         public string GetStringToHash();
     }
-    public interface ILSHWeightedHashable
+    public interface ILSHWeightedHashable : BaseHashable
     {
         public List<Tuple<string,double>> GetWeightedStringsToHash();
     }

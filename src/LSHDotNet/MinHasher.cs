@@ -15,9 +15,9 @@ namespace LSHDotNet
             _signatureSize = SignatureSize;
             minHashSeeds = CreateMinHashSeeds(_signatureSize);
         }
-        public MinHasher(int signatureSize, int[][] minHashes)
+        public MinHasher(int[][] minHashes)
         {
-            _signatureSize = signatureSize;
+            _signatureSize = minHashes.Length;
             minHashSeeds = minHashes;
         }
 
@@ -38,12 +38,12 @@ namespace LSHDotNet
             return seeds;
         }
         
-        public int[] GetMinHashSignature<TokenType>(TokenType[] tokens)
+        public int[] GetMinHashSignature(string[] tokens)
         {
             //Create a new signature initialized to all int max values
             int[] minHashValues = Enumerable.Repeat(int.MaxValue, _signatureSize).ToArray();
 
-            HashSet<TokenType> skipDups = new HashSet<TokenType>();
+            HashSet<string> skipDups = new HashSet<string>();
             //Go through every single token 
             foreach (var token in tokens)
             {   //We do not want to hash the same token value more than once...
@@ -64,7 +64,7 @@ namespace LSHDotNet
 
         public int[] GetMinHashSignature(string value)
         {
-            return GetMinHashSignature(SplitInParts(value,1));
+            return GetMinHashSignature(SplitInParts(value.ToLower(),1));
         }
 
         private static string[] SplitInParts(string s, int partLength)
@@ -121,15 +121,18 @@ namespace LSHDotNet
             }
             return minhashCollection;
         }
-
-        private static int LSHHash<TokenType>(TokenType inputData, int seedOne, int seedTwo)
+        private static int GetSimpleHash(string s)
+        {
+            return s.Select(a => (int)a).Sum();
+        }
+        private static int LSHHash(string inputData, int seedOne, int seedTwo)
         {   //Faster, Does not throw exception for overflows during hashing.
             unchecked // Overflow is fine, just wrap
             {
                 int hash = (int)2166136261;
-                hash = hash * 16777619 ^ seedOne.GetHashCode();
-                hash = hash * 16777619 ^ seedTwo.GetHashCode();
-                hash = hash * 16777619 ^ inputData.GetHashCode();
+                hash = hash * 16777619 ^ seedOne;//.GetHashCode();
+                hash = hash * 16777619 ^ seedTwo;//.GetHashCode();
+                hash = hash * 16777619 ^ GetSimpleHash(inputData);
                 return hash;
             }
         }

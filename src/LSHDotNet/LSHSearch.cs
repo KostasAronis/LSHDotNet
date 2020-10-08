@@ -29,10 +29,6 @@ namespace LSHDotNet
                 for(var i = 0; i < weightedStrings.Count; i++)
                 {
                     var str = weightedStrings[i].Item1;
-                    if (str == "C24F390FHU")
-                    {
-
-                    }
                     var weight = weightedStrings[i].Item2;
                     var minhash = searchSpaceHashes[id][i];
                     var weightedSimilarity = similarityMeasure.Invoke(minhash, searchMinHash) * weight;

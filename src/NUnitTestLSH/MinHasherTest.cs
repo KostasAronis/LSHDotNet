@@ -464,8 +464,26 @@ namespace NUnitTestLSH
         [SetUp]
         public void Setup()
         {
-            minHasher = new MinHasher<int>(signatureSize, hashSeeds);
+            minHasher = new MinHasher<int>(hashSeeds);
             lshSearcher = new LSHSearch<int>(minHasher, SimilarityMeasures.Jaccard);
+        }
+
+        [Test]
+        public void SimpleHashCharTest()
+        {
+            var minH = new MinHasher<int>(hashSeeds.Take(1).ToArray());
+            var mhs = minH.GetMinHashSignature(new string[] { "A","S","D","F" });
+            var mhs2 = minH.GetMinHashSignature("ASDF");
+            Assert.AreEqual(mhs, mhs2);
+        }
+
+        [Test]
+        public void SimpleHashTest()
+        {
+            var minH = new MinHasher<int>(hashSeeds.Take(10).ToArray());
+            var mhs = minH.GetMinHashSignature("ASDF");
+            var mhs2 = minH.GetMinHashSignature("ASDF");
+            Assert.AreEqual(mhs, mhs2);
         }
 
         [Test]

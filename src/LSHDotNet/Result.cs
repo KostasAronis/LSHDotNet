@@ -8,7 +8,7 @@ namespace LSHDotNet
     {
         public T Id { get; set; }
         public double Similarity { get; set; }
-        public ILSHashable Document { get; set; }
+        public BaseHashable Document { get; set; }
         public int CompareTo(Result<T> that)
         {
             if (this.Similarity > that.Similarity) return -1;
